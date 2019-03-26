@@ -87,7 +87,7 @@
     rxjs "6.3.3"
     source-map "0.7.3"
 
-"@angular-devkit/schematics@7.3.6":
+"@angular-devkit/schematics@7.3.6", "@angular-devkit/schematics@^7.3.6":
   version "7.3.6"
   resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-7.3.6.tgz#5580b730b1bae5397f5860cfb0d7270fec6e6deb"
   dependencies:
@@ -257,6 +257,22 @@
     esutils "^2.0.2"
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
+
+"@ngrx/effects@^7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-7.3.0.tgz#9bc3d58c7e6c810083870b3cd84bfe339847c5c0"
+
+"@ngrx/entity@^7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/entity/-/entity-7.3.0.tgz#733f91d53c25244d23d2518a13e8b41cdbb3c5b5"
+
+"@ngrx/store-devtools@^7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-7.3.0.tgz#a178e66083343d81e554cfc092101f5bf8311908"
+
+"@ngrx/store@^7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-7.3.0.tgz#12684cef59765f161d0152b12a6caad63dbb832a"
 
 "@ngtools/webpack@7.3.6":
   version "7.3.6"
@@ -552,6 +568,10 @@ ajv@^6.1.0, ajv@^6.5.5:
 amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
+
+angular-in-memory-web-api@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/angular-in-memory-web-api/-/angular-in-memory-web-api-0.8.0.tgz#6cb63c9e8e22c59383dfcccaf0512791400bf4e1"
 
 ansi-colors@^3.0.0:
   version "3.2.4"
