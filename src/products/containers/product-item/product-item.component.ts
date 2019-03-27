@@ -1,22 +1,30 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { Observable, combineLatest } from 'rxjs';
+
 import { Pizza } from '../../models/pizza.model';
 import { PizzasService } from '../../services/pizzas.service';
 import { ToppingsService } from '../../services/toppings.service';
 
+import { Store } from '@ngrx/store';
+import { State } from 'src/app/store';
+import { ProductsState } from '../../store';
 import * as fromStore from '../../store';
+import * as fromAppStore from '../../../app/store';
+import { map, filter, tap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'product-item',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['product-item.component.scss'],
   template: `
     <div
       class="product-item">
       <pizza-form
-        [pizza]="pizza"
-        [toppings]="toppings"
+        [pizza]="pizza$ | async"
+        [toppings]="toppings$ | async"
         (selected)="onSelect($event)"
         (create)="onCreate($event)"
         (update)="onUpdate($event)"
@@ -30,33 +38,52 @@ import * as fromStore from '../../store';
 })
 export class ProductItemComponent implements OnInit {
 
-  pizza: Pizza;
+  pizza$: Observable<Pizza>;
   selected: Pizza;
-  toppings: string[];
+  toppings$: Observable<string[]>;
 
   constructor(
     private pizzaService: PizzasService,
-    private toppingsService: ToppingsService,
-    private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+
+    private routerStore$: Store<fromAppStore.RouterStateUrl>,
+    private pizzaStore$: Store<fromStore.ProductsState>
   ) {}
 
   ngOnInit() {
 
-    this.pizzaService.getPizzas().subscribe(pizzas => {
-      const param = this.route.snapshot.params.id;
-      let pizza;
-      if (param === 'new') {
-        pizza = {};
-      } else {
-        pizza = pizzas.find(pizza => pizza.id == parseInt(param, 10));
-      }
-      this.pizza = pizza;
-      this.selected = pizza;
-      this.toppingsService.getToppings().subscribe(toppings => {
-        this.toppings = toppings;
-      });
-    });
+    const param$: Observable<string> = this.routerStore$.select(fromAppStore.getParams).pipe(
+      map(params => params.id)
+    );
+    const pizzas$: Observable<Pizza[]> = this.pizzaStore$.select(fromStore.getAllPizzas);
+
+    this.pizza$ = combineLatest(
+      param$,
+      pizzas$
+    ).pipe(
+      map(([param, pizzas]) => param === 'new'
+        ? {}
+        : pizzas.find(pizza => pizza.id === parseInt(param, 10))
+      ),
+      tap(pizza => this.selected = pizza)
+    );
+
+    this.toppings$ = this.pizzaStore$.select(fromStore.getAllToppings);
+
+    // this.pizzaService.getPizzas().subscribe(pizzas => {
+    //   const param = this.route.snapshot.params.id;
+    //   let pizza;
+    //   if (param === 'new') {
+    //     pizza = {};
+    //   } else {
+    //     pizza = pizzas.find(pizza => pizza.id == parseInt(param, 10));
+    //   }
+    //   this.pizza = pizza;
+    //   this.selected = pizza;
+    //   this.toppingsService.getToppings().subscribe(toppings => {
+    //     this.toppings = toppings;
+    //   });
+    // });
   }
 
   onSelect(event: Pizza) {
