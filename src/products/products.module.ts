@@ -22,6 +22,8 @@ import * as fromGuards from './guards';
 import * as fromServices from './services';
 
 import * as fromStore from './store';
+import { EffectsModule } from '@ngrx/effects';
+
 // routes
 export const ROUTES: Routes = [
   {
@@ -47,6 +49,7 @@ export const ROUTES: Routes = [
       PizzaInMemoryDataService, { dataEncapsulation: false }
     ),
     StoreModule.forFeature('products', fromStore.reducers),
+    EffectsModule.forFeature(fromStore.effects),
     RouterModule.forChild(ROUTES),
   ],
   providers: [...fromGuards.guards, ...fromServices.services],
