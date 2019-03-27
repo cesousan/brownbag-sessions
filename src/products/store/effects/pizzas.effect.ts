@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 
 import { of, Observable } from 'rxjs';
+import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
 import * as pizzaActions from '../actions/pizzas.action';
 import * as fromServices from '../../services';
-import { Action } from '@ngrx/store';
-import { startWith, switchMap, map, catchError } from 'rxjs/operators';
 
 @Injectable()
 export class PizzasEffects {

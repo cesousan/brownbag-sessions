@@ -3,8 +3,3 @@ export interface Pizza {
   name?: string;
   toppings?: string[];
 }
-
-export interface Topping {
-  id?: number;
-  name?: string;
-}

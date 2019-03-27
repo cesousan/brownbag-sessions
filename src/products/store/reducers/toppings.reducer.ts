@@ -1,8 +1,7 @@
 import * as fromToppings from '../actions/toppings.action';
-import { Topping } from '../../models/pizza.model';
 
 export interface ToppingsState {
-    data: Topping[];
+    data: string[];
     loading: boolean;
     loaded: boolean;
     error: any;
