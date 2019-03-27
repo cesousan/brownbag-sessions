@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
+import { StoreModule } from '@ngrx/store';
+
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { PizzaInMemoryDataService } from 'src/app/fake-backend/pizza-in-memory-data.service';
 
@@ -18,6 +21,7 @@ import * as fromGuards from './guards';
 // services
 import * as fromServices from './services';
 
+import * as fromStore from './store';
 // routes
 export const ROUTES: Routes = [
   {
@@ -42,6 +46,7 @@ export const ROUTES: Routes = [
     HttpClientInMemoryWebApiModule.forRoot(
       PizzaInMemoryDataService, { dataEncapsulation: false }
     ),
+    StoreModule.forFeature('products', fromStore.reducers),
     RouterModule.forChild(ROUTES),
   ],
   providers: [...fromGuards.guards, ...fromServices.services],
