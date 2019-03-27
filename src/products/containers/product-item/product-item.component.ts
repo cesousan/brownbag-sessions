@@ -12,7 +12,7 @@ import * as fromStore from '../../store';
   // changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['product-item.component.scss'],
   template: `
-    <div 
+    <div
       class="product-item">
       <pizza-form
         [pizza]="pizza"
@@ -29,6 +29,7 @@ import * as fromStore from '../../store';
   `,
 })
 export class ProductItemComponent implements OnInit {
+
   pizza: Pizza;
   selected: Pizza;
   toppings: string[];
@@ -41,6 +42,7 @@ export class ProductItemComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
     this.pizzaService.getPizzas().subscribe(pizzas => {
       const param = this.route.snapshot.params.id;
       let pizza;

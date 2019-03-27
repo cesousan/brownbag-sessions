@@ -47,3 +47,8 @@ export function reducer(
         }
     }
 }
+
+export const getLoading = (state: ToppingsState) => state.loading;
+export const getLoaded = (state: ToppingsState) => state.loaded;
+export const getData = (state: ToppingsState) => state.data;
+export const getError = (state: ToppingsState) => state.error;

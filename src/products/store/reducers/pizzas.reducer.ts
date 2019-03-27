@@ -66,3 +66,9 @@ export function reducer(
         }
     }
 }
+
+export const getLoading = (state: PizzaState) => state.loading;
+export const getLoaded = (state: PizzaState) => state.loaded;
+export const getData = (state: PizzaState) => state.data;
+export const getError = (state: PizzaState) => state.error;
+

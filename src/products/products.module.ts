@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { PizzaInMemoryDataService } from 'src/app/fake-backend/pizza-in-memory-data.service';
@@ -22,7 +23,6 @@ import * as fromGuards from './guards';
 import * as fromServices from './services';
 
 import * as fromStore from './store';
-import { EffectsModule } from '@ngrx/effects';
 
 // routes
 export const ROUTES: Routes = [
