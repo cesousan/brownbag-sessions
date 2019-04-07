@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, HostListener } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 
@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 
 import { Pizza } from '../../models/pizza.model';
 import * as fromStore from '../../store';
-import { map } from 'rxjs/operators';
+import { pollMachine, PollingMachine } from 'src/app/utils/action-poll';
 
 @Component({
   selector: 'products',
@@ -24,7 +24,7 @@ import { map } from 'rxjs/operators';
       <div class="products__list">
         <ng-container *ngIf="(pizzas$ | async) as pizzas; else noPizza">
           <pizza-item
-            *ngFor="let pizza of pizzas"
+            *ngFor="let pizza of pizzas; let index = i; trackBy:trackByPizzaId"
             [pizza]="pizza">
           </pizza-item>
         </ng-container>
@@ -35,15 +35,27 @@ import { map } from 'rxjs/operators';
     </div>
   `,
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
   pizzas$: Observable<Pizza[]>;
-
+  private poll: PollingMachine;
   constructor(private store: Store<fromStore.ProductsState>) {}
 
   ngOnInit() {
     this.pizzas$ = this.store.select(fromStore.getAllPizzas);
-    // this.pizzas$ = this.store.select('pizzas').pipe(
-    //   map(pizzaState => pizzaState.data)
-    // );
+    this.poll = pollMachine(fromStore.LoadPizza, this.store, 5);
+    this.poll.start();
+  }
+
+  @HostListener('window:beforeunload')
+  ngOnDestroy(): void {
+    this.poll.stop();
+  }
+
+  trackByPizzaId(index: number, item: Pizza) {
+    return !item
+      ? null
+      : !item.id
+        ? index
+        : item.id;
   }
 }

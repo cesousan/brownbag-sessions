@@ -2,19 +2,26 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, take, scan } from 'rxjs/operators';
 
 import { Pizza } from '../models/pizza.model';
 
 @Injectable()
 export class PizzasService {
   constructor(private http: HttpClient) {}
-
+  private i = 0;
   getPizzas(): Observable<Pizza[]> {
     return this.http
       .get<Pizza[]>(`/api/pizzas`)
       .pipe(
-        tap(console.log),
+        /**
+         * fakes asynchronous update of the data from backend
+         * to test polling and proper rerendering of the pizzas.
+         */
+        scan((x, y) => {
+          console.log(x, y, this.i);
+          return y.slice(0, this.i < y.length ? ++this.i : this.i);
+        }, []),
         catchError((error: any) => throwError(error))
       );
   }
