@@ -14,7 +14,7 @@ export const selectUploadFeatureState: MemoizedSelector<
 export const selectUploadFileState = createSelector(
   selectUploadFeatureState,
   (state: fromReducer.UploadState) => state.files
-)
+);
 
 export const selectUploadFileError = createSelector(
   selectUploadFileState,

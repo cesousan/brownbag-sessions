@@ -33,11 +33,11 @@ export class UploadFileEffect {
         catchError(error => of(error))
       )
     )
-  )
+  );
 }
 
 function getActionFromHttpEvent(event: HttpEvent<any>) {
-  switch(event.type) {
+  switch (event.type) {
     case HttpEventType.Sent: {
       return new fromFileUpload.UploadStarted();
     }
