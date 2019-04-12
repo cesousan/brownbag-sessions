@@ -1,6 +1,6 @@
 import { Observable, Subscription, Subject, interval } from 'rxjs';
 import { tap, takeUntil } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
+import { Store, Action } from '@ngrx/store';
 
 /**
  *
@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
  * @param pollInterval the interval in seconds, defaults value is 2 seconds
  * @return two functions: start and stop.
  */
-export function pollMachine<T>(PollAction, store: Store<T>, pollInterval = 2): PollingMachine {
+export function pollMachine<T>(PollAction: new(payload?:any) => { type: string, payload?: any }, store: Store<T>, pollInterval = 2): PollingMachine {
   const stop$: Subject<void> = new Subject();
   const polling: Observable<number> = interval(pollInterval * 1000).pipe(
     takeUntil(stop$),

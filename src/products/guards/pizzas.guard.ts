@@ -13,7 +13,6 @@ export class PizzasGuard implements CanActivate {
   constructor(private store: Store<fromStore.ProductsState>) {}
 
   canActivate(): Observable<boolean> {
-    console.log('hey');
     return of(true);
   }
 }

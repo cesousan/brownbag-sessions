@@ -25,7 +25,7 @@ export const getPizzaState = createSelector(
 // pizza state selectors
 export const getAllPizzas = createSelector(
   getPizzaState,
-  fromPizzas.getData
+  fromPizzas.getEntitiesAsArray
 );
 
 export const getPizzasLoading = createSelector(

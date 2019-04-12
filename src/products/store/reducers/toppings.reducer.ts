@@ -26,13 +26,13 @@ export function reducer(
             };
         }
         case fromToppings.LOAD_TOPPINGS_SUCCESS : {
-            return {
-                ...state,
-                data: action.payload,
-                loading: false,
-                loaded: true,
-                error: null
-            };
+          return {
+              ...state,
+              data: action.payload,
+              loading: false,
+              loaded: true,
+              error: null
+          };
         }
         case fromToppings.LOAD_TOPPINGS_FAIL : {
             return {

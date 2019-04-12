@@ -19,7 +19,6 @@ export class PizzasService {
          * to test polling and proper rerendering of the pizzas.
          */
         scan((x, y) => {
-          console.log(x, y, this.i);
           return y.slice(0, this.i < y.length ? ++this.i : this.i);
         }, []),
         catchError((error: any) => throwError(error))
