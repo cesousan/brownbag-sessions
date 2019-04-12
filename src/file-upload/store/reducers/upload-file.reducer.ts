@@ -14,7 +14,7 @@ export const initialState: FileUploadState = {
   progress: null
 };
 
-export function featureReducer(state = initialState, action: fromActions.UploadActions): FileUploadState {
+export function reducer(state = initialState, action: fromActions.UploadActions): FileUploadState {
   switch (action.type) {
     case fromActions.UPLOAD_REQUEST: {
       return {

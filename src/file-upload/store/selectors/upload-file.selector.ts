@@ -4,50 +4,54 @@ import {
   MemoizedSelector
 } from '@ngrx/store';
 
-import { UploadStatus } from 'src/file-upload/models';
-import { fromReducer } from '../reducers';
+import * as fromReducer from '../reducers';
 
-export const selectUploadFileFeatureState: MemoizedSelector<
+export const selectUploadFeatureState: MemoizedSelector<
   object,
-  fromReducer.FileUploadState
-> = createFeatureSelector<fromReducer.FileUploadState>('uploadFile');
+  fromReducer.UploadState
+> = createFeatureSelector<fromReducer.UploadState>('upload');
+
+export const selectUploadFileState = createSelector(
+  selectUploadFeatureState,
+  (state: fromReducer.UploadState) => state.files
+)
 
 export const selectUploadFileError = createSelector(
-  selectUploadFileFeatureState,
+  selectUploadFileState,
   fromReducer.getError
 );
 
 export const selectUploadFileReady = createSelector(
-  selectUploadFileFeatureState,
+  selectUploadFileState,
   fromReducer.getReady
 );
 
 export const selectUploadFileRequested = createSelector(
-  selectUploadFileFeatureState,
+  selectUploadFileState,
   fromReducer.getRequested
 );
 
 export const selectUploadFileStarted = createSelector(
-  selectUploadFileFeatureState,
+  selectUploadFileState,
   fromReducer.getStarted
 );
 
 export const selectUploadFileProgress = createSelector(
-  selectUploadFileFeatureState,
+  selectUploadFileState,
   fromReducer.getProgress
 );
 
 export const selectUploadFileInProgress = createSelector(
-  selectUploadFileFeatureState,
+  selectUploadFileState,
   fromReducer.getInProgress
 );
 
 export const selectUploadFileFailed = createSelector(
-  selectUploadFileFeatureState,
+  selectUploadFileState,
   fromReducer.getFailed
 );
 
 export const selectUploadFileCompleted = createSelector(
-  selectUploadFileFeatureState,
+  selectUploadFileState,
   fromReducer.getCompleted
 );
