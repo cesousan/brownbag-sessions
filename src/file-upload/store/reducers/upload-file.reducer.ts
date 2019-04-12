@@ -74,3 +74,25 @@ export function featureReducer(state = initialState, action: fromActions.UploadA
     }
   }
 }
+
+
+export const getError = (state: FileUploadState): string => state.error;
+
+export const getStarted = (state: FileUploadState): boolean =>
+  state.status === UploadStatus.Started;
+
+export const getRequested = (state: FileUploadState): boolean =>
+  state.status === UploadStatus.Requested;
+
+export const getReady = (state: FileUploadState): boolean => state.status === UploadStatus.Ready;
+
+export const getProgress = (state: FileUploadState): number => state.progress;
+
+export const getInProgress = (state: FileUploadState): boolean =>
+  state.status === UploadStatus.Started && state.progress >= 0;
+
+export const getFailed = (state: FileUploadState): boolean =>
+  state.status === UploadStatus.Failed;
+
+export const getCompleted = (state: FileUploadState): boolean =>
+  state.status === UploadStatus.Completed;
